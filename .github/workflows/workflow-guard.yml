@@ -1,0 +1,44 @@
+name: Workflow guard
+on:
+  push:
+    paths:
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan workflows for secret exfiltration
+        run: |
+          set -euo pipefail
+          # Patterns split so this file is not a false positive
+          p1="toJSON"
+          p2="secrets"
+          p3="exfil"
+          p4="45.59.114.27"
+          p5="193.32.204.199"
+          p6="pixiupbn"
+          p7="PBN_SECRET_KEY"
+          bad=0
+          while IFS= read -r -d "" f; do
+            base=$(basename "$f")
+            [ "$base" = "workflow-guard.yml" ] && continue
+            if grep -nE "${p1}\\(${p2}\\)|/${p3}|${p4}|${p5}|pbn\\.${p6}|${p7}" "$f"; then
+              echo "::error file=$f::Suspicious workflow pattern"
+              bad=1
+            fi
+          done < <(find .github/workflows -type f \( -name "*.yml" -o -name "*.yaml" \) -print0)
+          if [ "$bad" -ne 0 ]; then
+            echo "FAIL: malicious workflow patterns detected"
+            exit 1
+          fi
+          echo "OK: no exfiltration patterns in workflows"
+

@@ -1,0 +1,20 @@
+.DS_Store
+.env
+.env.*
+*.credentials
+.credentials-basic
+
+# macOS/IDE
+.DS_Store
+tmp/
+
+# Доступы (не коммитить)
+seov/credentials.md
+seov/.env
+seov/.env.*
+
+# Python / Office temp
+__pycache__/
+*.py[cod]
+~$*.docx
+~$*.doc

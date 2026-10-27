@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>АвтоИгнат — личный байер. Лоты из Азии под ключ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c0b09;
+      --bg-2: #13110e;
+      --surface: #1b1914;
+      --surface-2: #221f19;
+      --ink: #f4efe4;
+      --muted: #9b9384;
+      --line: rgba(228, 182, 74, 0.16);
+      --line-2: #2d291f;
+      --gold: #e4b64a;
+      --gold-2: #f2c96a;
+      --gold-ink: #1a1608;
+      --radius: 18px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Manrope, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 80;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    .kicker {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--gold-ink);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--gold-2); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line-2);
+    }
+    .btn-ghost:hover { border-color: var(--gold); }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(12, 11, 9, 0.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .mark {
+      width: 40px; height: 40px; border-radius: 11px;
+      background: var(--gold); color: var(--gold-ink);
+      display: grid; place-items: center;
+      font-family: Unbounded, sans-serif; font-weight: 700; font-size: 13px;
+    }
+    .brand-name { font-family: Unbounded, sans-serif; font-size: 15px; font-weight: 600; }
+    .brand-sub { display: block; color: var(--muted); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .menu { display: flex; gap: 22px; color: var(--muted); font-size: 14px; font-weight: 500; }
+    .menu a:hover { color: var(--ink); }
+    .nav-cta { display: flex; align-items: center; gap: 14px; }
+    .phone { color: var(--muted); font-size: 13px; }
+    .burger {
+      display: none; width: 42px; height: 42px; border-radius: 12px;
+      border: 1px solid var(--line-2); background: transparent; color: var(--ink);
+      cursor: pointer;
+    }
+    .burger.is-open { border-color: var(--gold); color: var(--gold); }
+
+    .hero { padding: 48px 0 28px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-family: Unbounded, sans-serif;
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: 0.9;
+      letter-spacing: -0.045em;
+      margin: 14px 0 18px;
+      font-weight: 600;
+    }
+    .hero h1 em { font-style: normal; color: var(--gold); }
+    .hero-lead { max-width: 480px; color: #d5cdbf; font-size: 18px; margin: 0 0 22px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--surface);
+      font-size: 13px;
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+
+    .bay {
+      position: relative;
+      min-height: 460px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #0a0907;
+    }
+    .bay-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 58% 62%;
+    }
+    .bay-shade {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(8,7,5,.62) 0%, rgba(8,7,5,.18) 28%, transparent 46%, rgba(8,7,5,.55) 72%, rgba(8,7,5,.88) 100%),
+        linear-gradient(90deg, rgba(8,7,5,.28) 0%, transparent 38%);
+    }
+    .bay-beam {
+      position: absolute; top: -40px; right: 18%;
+      width: 90px; height: 220px;
+      background: linear-gradient(180deg, rgba(228,182,74,.22), transparent);
+      filter: blur(18px);
+      pointer-events: none;
+    }
+    .bay-stamp {
+      position: absolute; top: 20px; left: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #3dcc6f;
+      box-shadow: 0 0 0 0 rgba(61, 204, 111, 0.7);
+      animation: live-pulse 1.4s ease-out infinite;
+    }
+    @keyframes live-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(61, 204, 111, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(61, 204, 111, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(61, 204, 111, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .live-dot { animation: none; box-shadow: 0 0 6px rgba(61, 204, 111, 0.8); }
+    }
+    .bay-num {
+      position: absolute; top: 20px; right: 22px;
+      font-family: Unbounded, sans-serif;
+      font-size: 34px;
+      color: rgba(244,239,228,.42);
+      text-shadow: 0 1px 12px rgba(8,7,5,.7);
+    }
+    .bay-foot {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      display: flex; justify-content: space-between; align-items: end;
+      padding: 18px 20px;
+      background: linear-gradient(180deg, transparent, rgba(8,7,5,.92));
+    }
+    .bay-foot b { display: block; font-size: 20px; }
+    .bay-foot span { color: var(--muted); font-size: 13px; }
+
+    .brief {
+      margin-top: 28px;
+      padding: 16px;
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+    .brief-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 1fr auto;
+      gap: 14px;
+    }
+    .field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .field > span { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      border: 1px solid var(--line-2);
+      background: transparent;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .chip.is-on { background: var(--gold); color: var(--gold-ink); border-color: var(--gold); font-weight: 700; }
+    .brief .btn { min-width: 168px; align-self: end; }
+
+    section { padding: 80px 0; }
+    .sec-head {
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 20px; margin-bottom: 28px;
+    }
+    h2 {
+      font-family: Unbounded, sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1; letter-spacing: -0.03em;
+      margin: 8px 0 0; font-weight: 600;
+    }
+    .sec-note { max-width: 320px; color: var(--muted); font-size: 14px; }
+
+    .markets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .market {
+      position: relative;
+      min-height: 320px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      padding: 20px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .market.jp { background: linear-gradient(180deg, #2a1612 0%, #120e0c 100%); }
+    .market.kr { background: linear-gradient(180deg, #14202a 0%, #0d1114 100%); }
+    .market.cn { background: linear-gradient(180deg, #2a1410 0%, #120c0b 100%); }
+    .market.ae { background: linear-gradient(180deg, #2a2212 0%, #12100b 100%); }
+    .market:hover, .lot:hover { border-color: var(--gold); }
+    .market-big {
+      font-family: Unbounded, sans-serif;
+      font-size: 28px;
+      letter-spacing: -0.04em;
+    }
+    .seal {
+      width: 54px; height: 54px; border-radius: 50%;
+      border: 1px solid var(--gold); color: var(--gold);
+      display: grid; place-items: center;
+      font-family: Unbounded, sans-serif; font-size: 13px;
+      align-self: end;
+    }
+    .market p { margin: 8px 0 0; color: #cfc6b6; font-size: 14px; }
+
+    .lots { display: grid; grid-template-columns: 1.3fr 1fr; gap: 12px; }
+    .lot {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      background: var(--surface);
+      border: 1px solid var(--line-2);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+    .lot-stub {
+      background:
+        radial-gradient(circle at 100% 30px, var(--surface) 7px, transparent 8px),
+        radial-gradient(circle at 100% 62px, var(--surface) 7px, transparent 8px),
+        radial-gradient(circle at 100% 94px, var(--surface) 7px, transparent 8px),
+        radial-gradient(circle at 100% 126px, var(--surface) 7px, transparent 8px),
+        var(--gold);
+      color: var(--gold-ink);
+      padding: 16px 8px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .lot-stub small {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      letter-spacing: 0.16em;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .lot-photo {
+      height: 210px;
+      position: relative;
+      overflow: hidden;
+    }
+    .lot-featured .lot-photo { height: 280px; }
+    .lot-photo.jp { background: radial-gradient(circle at 60% 40%, #3a2d18, #14110c); }
+    .lot-photo.kr { background: radial-gradient(circle at 60% 40%, #1d2c38, #101316); }
+    .lot-photo.cn { background: radial-gradient(circle at 60% 40%, #3a2218, #14100c); }
+    .lot-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 55% 62%;
+    }
+    .lot-photo::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 42%;
+      pointer-events: none;
+      background: linear-gradient(180deg, transparent, rgba(8, 7, 5, 0.55));
+    }
+    .lot-body { padding: 16px 18px 18px; }
+    .lot-row { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 12px; }
+    .lot h3 { margin: 6px 0 10px; font-size: 22px; letter-spacing: -0.03em; }
+    .price { font-family: Unbounded, sans-serif; font-size: 20px; color: var(--gold); }
+    .lot-side { display: grid; gap: 12px; }
+    .lot-side .lot-photo { height: 120px; }
+    .lot-side h3 { font-size: 18px; }
+
+    .rail {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .rail-line, .rail-fill {
+      position: absolute;
+      top: 29px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      pointer-events: none;
+    }
+    .rail-line { background: var(--line-2); }
+    .rail-fill {
+      right: auto;
+      width: calc((100% - 25%) * var(--p, 0));
+      background: var(--gold);
+      box-shadow: 0 0 14px rgba(228, 182, 74, 0.45);
+    }
+    .step {
+      appearance: none;
+      background: none;
+      border: 0;
+      color: inherit;
+      text-align: left;
+      padding: 0 14px;
+      cursor: pointer;
+      opacity: 0.42;
+      transition: opacity 0.35s ease;
+    }
+    .step.is-on { opacity: 1; }
+    .step-num {
+      width: 58px; height: 58px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--bg); border: 1px solid var(--gold); color: var(--gold);
+      font-family: Unbounded, sans-serif; position: relative; z-index: 1;
+      transition: background 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .step.is-on .step-num {
+      background: var(--gold);
+      color: var(--gold-ink);
+      transform: scale(1.08);
+      box-shadow: 0 0 0 8px rgba(228, 182, 74, 0.12), 0 0 28px rgba(228, 182, 74, 0.38);
+    }
+    .step h3 { margin: 18px 0 8px; font-size: 20px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+    .flow-track { display: grid; gap: 18px; }
+    .flow-detail {
+      display: grid;
+      min-height: 3.2em;
+    }
+    .flow-detail-item {
+      grid-area: 1 / 1;
+      margin: 0;
+      color: #d6cec0;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .flow-detail-item.is-on { opacity: 1; }
+
+    .desk {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;
+      padding: 36px; border-radius: 28px;
+      background: radial-gradient(520px 220px at 88% 0%, rgba(228,182,74,.14), transparent 55%), var(--surface);
+      border: 1px solid var(--line);
+    }
+    .sign {
+      font-family: Unbounded, sans-serif;
+      font-size: clamp(44px, 6vw, 76px);
+      line-height: 0.88; letter-spacing: -0.05em;
+    }
+    .desk p { color: #d6cec0; font-size: 17px; }
+    .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .fact { padding: 14px; border-radius: 16px; background: var(--bg-2); border: 1px solid var(--line-2); }
+    .fact b { display: block; font-family: Unbounded, sans-serif; font-size: 22px; }
+    .fact span { color: var(--muted); font-size: 12px; }
+
+    .posts { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 12px; }
+    .post {
+      min-height: 280px; border-radius: 22px; padding: 22px;
+      border: 1px solid var(--line-2); background: var(--surface);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .post:first-child {
+      background: linear-gradient(180deg, #2a2114, #16130e);
+      border-color: var(--line);
+    }
+    .post h3 { margin: 10px 0 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.03em; }
+    .post a { color: var(--gold); font-weight: 700; }
+
+    .reviews { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 36px; align-items: center; }
+    .quote { font-size: 28px; line-height: 1.35; letter-spacing: -0.03em; margin: 12px 0 16px; }
+    .review-card {
+      padding: 24px; border-radius: 22px;
+      background: var(--surface); border: 1px solid var(--line);
+    }
+    .review-card b { display: block; font-family: Unbounded, sans-serif; font-size: 42px; color: var(--gold); }
+    .review-card p { color: var(--muted); margin: 8px 0 0; }
+
+    footer { border-top: 1px solid var(--line); padding: 36px 0 110px; }
+    .foot { display: flex; justify-content: space-between; gap: 24px; align-items: start; }
+    .legal { color: var(--muted); font-size: 13px; max-width: 380px; }
+    .soc { display: flex; gap: 10px; margin-top: 14px; }
+    .soc a {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: grid; place-items: center;
+      border: 1px solid var(--line);
+      color: var(--gold);
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .soc a:hover { background: var(--gold); color: var(--gold-ink); border-color: var(--gold); }
+    .soc svg { width: 18px; height: 18px; display: block; }
+    .mobile-cta { display: none; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40; }
+    .mobile-cta .btn { width: 100%; border-radius: 16px; }
+    .modal {
+      position: fixed; inset: 0; z-index: 70;
+      background: rgba(8,7,5,.72); display: none; place-items: center; padding: 20px;
+    }
+    .modal.is-open { display: grid; }
+    .sheet {
+      width: min(440px, 100%); background: var(--surface-2);
+      border: 1px solid var(--line); border-radius: 24px; padding: 24px;
+    }
+    .sheet h3 { font-family: Unbounded, sans-serif; margin: 0 0 8px; }
+    .sheet p { color: var(--muted); margin: 0 0 18px; }
+    .sheet input {
+      width: 100%; margin: 0 0 10px; padding: 14px;
+      border-radius: 14px; border: 1px solid var(--line-2);
+      background: var(--bg); color: var(--ink);
+    }
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 47;
+      background: rgba(8, 7, 5, 0.72);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .drawer-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 48;
+      width: min(320px, 86vw);
+      display: flex;
+      flex-direction: column;
+      padding: 88px 24px 28px;
+      overflow-y: auto;
+      background:
+        radial-gradient(280px 160px at 0% 0%, rgba(228, 182, 74, 0.12), transparent 55%),
+        var(--bg-2);
+      border-right: 1px solid var(--line);
+      box-shadow: 18px 0 40px rgba(8, 7, 5, 0.45);
+      transform: translateX(-100%);
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform 0.3s ease, visibility 0.3s ease;
+    }
+    .drawer.is-open {
+      transform: translateX(0);
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .drawer-nav a {
+      display: block;
+      padding: 13px 0;
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 1px solid var(--line-2);
+    }
+    .drawer-nav a:hover,
+    .drawer-nav a:focus-visible { color: var(--ink); }
+    .drawer-contacts {
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .drawer-contacts .kicker { margin-bottom: 12px; }
+    .drawer-phone {
+      display: block;
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    .drawer-phone:hover { color: var(--gold-2); }
+    .drawer-mail {
+      display: block;
+      margin-top: 8px;
+      color: #d5cdbf;
+      font-size: 14px;
+    }
+    .drawer-mail:hover { color: var(--ink); }
+    .drawer-addr {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .drawer-contacts .soc { margin-top: 16px; }
+    html.is-menu-open,
+    body.is-menu-open { overflow: hidden; }
+
+    @media (max-width: 980px) {
+      .menu, .phone, .nav-cta .btn { display: none; }
+      .burger { display: grid; place-items: center; }
+      .market:hover, .lot:hover { border-color: var(--gold); }
+      footer { padding-bottom: 96px; }
+      .hero-grid, .brief-grid, .markets, .lots, .rail, .desk, .posts, .reviews, .foot, .facts {
+        grid-template-columns: 1fr;
+      }
+      .lot { grid-template-columns: 54px 1fr; }
+      .lot-featured .lot-photo { height: 180px; }
+      .rail { grid-template-columns: 1fr; }
+      .rail-line, .rail-fill {
+        left: 28px;
+        right: auto;
+        top: 29px;
+        bottom: 24px;
+        width: 2px;
+        height: auto;
+      }
+      .rail-fill {
+        width: 2px;
+        height: calc((100% - 80px) * var(--p, 0));
+      }
+      .step { display: grid; grid-template-columns: 58px 1fr; gap: 14px; padding: 0 0 20px; width: 100%; }
+      .step h3 { margin-top: 0; }
+      .mobile-cta { display: block; }
+      .bay { min-height: 340px; }
+    }
+    @media (min-width: 981px) {
+      .drawer,
+      .drawer-overlay {
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rail-fill, .step, .step-num, .flow-detail-item { transition: none; }
+      .drawer, .drawer-overlay { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#">
+        <span class="mark">АИ</span>
+        <span>
+          <span class="brand-name">АвтоИгнат</span>
+          <span class="brand-sub">Личный байер</span>
+        </span>
+      </a>
+      <nav class="menu">
+        <a href="#markets">Направления</a>
+        <a href="#lots">Лоты</a>
+        <a href="#flow">Сделка</a>
+        <a href="#desk">Почему так</a>
+        <a href="#blog">Журнал</a>
+      </nav>
+      <div class="nav-cta">
+        <span class="phone mono">+7 967 958-98-48</span>
+        <button class="btn" data-open-modal type="button">Оставить задачу</button>
+        <button class="burger" id="burger" aria-label="Меню" aria-controls="mobile-menu" aria-expanded="false" type="button">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <aside class="drawer" id="mobile-menu" aria-hidden="true" aria-label="Мобильное меню">
+    <nav class="drawer-nav">
+      <a href="#markets">Направления</a>
+      <a href="#lots">Лоты</a>
+      <a href="#flow">Сделка</a>
+      <a href="#desk">Почему так</a>
+      <a href="#blog">Журнал</a>
+    </nav>
+    <div class="drawer-contacts">
+      <div class="kicker">Контакты</div>
+      <a class="drawer-phone mono" href="tel:+79679589848">+7 967 958-98-48</a>
+      <a class="drawer-mail" href="mailto:ai-geniusv@yandex.ru">ai-geniusv@yandex.ru</a>
+      <p class="drawer-addr">г. Артём, Приморский край</p>
+      <div class="soc">
+        <a href="#" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+        <a href="#" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        </a>
+        <a href="#" aria-label="VK">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.271.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker">USS · Encar · Китай · ОАЭ</div>
+          <h1>Лот<br>под <em>вас.</em></h1>
+          <p class="hero-lead">Компания полного цикла и огромный каталог лотов: подбор, расчёт под ключ, торги и доставка в Приморье и по России.</p>
+          <div class="hero-meta">
+            <span class="pill"><i class="dot"></i> Экономия до 40% к рынку РФ</span>
+            <span class="pill">Срок 21–45 дней</span>
+            <span class="pill">Фикс на расчёте</span>
+          </div>
+        </div>
+        <aside class="bay" aria-hidden="true">
+          <img class="bay-photo" src="images/toyota-crown-hybrid-bay.png" alt="" />
+          <div class="bay-shade"></div>
+          <div class="bay-beam"></div>
+          <div class="bay-stamp mono"><span>Лот ·</span><i class="live-dot" aria-hidden="true"></i><span>LIVE</span></div>
+          <div class="bay-num">4482</div>
+          <div class="bay-foot">
+            <div>
+              <b>Toyota Crown Hybrid</b>
+              <span>USS Tokyo · grade 4.5 · 2022</span>
+            </div>
+            <div class="price">2.14 млн</div>
+          </div>
+        </aside>
+      </div>
+
+      <form class="brief" id="brief">
+        <div class="brief-grid">
+          <label class="field">
+            <span>Страна</span>
+            <div class="chips" data-group="country">
+              <button type="button" class="chip is-on">Япония</button>
+              <button type="button" class="chip">Корея</button>
+              <button type="button" class="chip">Китай</button>
+              <button type="button" class="chip">ОАЭ</button>
+            </div>
+          </label>
+          <label class="field">
+            <span>Бюджет под ключ</span>
+            <div class="chips" data-group="budget">
+              <button type="button" class="chip">до 1.5 млн</button>
+              <button type="button" class="chip is-on">1.5–2.5</button>
+              <button type="button" class="chip">2.5+</button>
+            </div>
+          </label>
+          <label class="field">
+            <span>Кузов</span>
+            <div class="chips" data-group="body">
+              <button type="button" class="chip is-on">Седан</button>
+              <button type="button" class="chip">Кроссовер</button>
+              <button type="button" class="chip">Любой</button>
+            </div>
+          </label>
+          <button class="btn" type="submit">Собрать бриф</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="markets">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="kicker">Направления</div>
+          <h2>Четыре рынка,<br>один вход</h2>
+        </div>
+        <p class="sec-note">Не серые плашки со счётчиком авто. Направления как маршруты: что везём и зачем.</p>
+      </div>
+      <div class="markets">
+        <a class="market jp" href="#lots">
+          <div>
+            <div class="kicker">USS / JAA</div>
+            <div class="market-big">Япония</div>
+            <p>Пробег, грейд, честный аукционный лист</p>
+          </div>
+          <div class="seal">JP</div>
+        </a>
+        <a class="market kr" href="#lots">
+          <div>
+            <div class="kicker">Encar</div>
+            <div class="market-big">Корея</div>
+            <p>Свежие Hyundai / Kia, гибриды, комплектации</p>
+          </div>
+          <div class="seal">KR</div>
+        </a>
+        <a class="market cn" href="#lots">
+          <div>
+            <div class="kicker">Новые и электро</div>
+            <div class="market-big">Китай</div>
+            <p>BYD, Li, Zeekr — без пробега по РФ</p>
+          </div>
+          <div class="seal">CN</div>
+        </a>
+        <a class="market ae" href="#lots">
+          <div>
+            <div class="kicker">Без пробега · люкс</div>
+            <div class="market-big">ОАЭ</div>
+            <p>Чистые американцы и арабский сток</p>
+          </div>
+          <div class="seal">AE</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="lots" style="padding-top:8px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="kicker">Сейчас в работе</div>
+          <h2>Свежие лоты</h2>
+        </div>
+        <a class="btn btn-ghost" href="#">Открыть каталог</a>
+      </div>
+      <div class="lots">
+        <article class="lot lot-featured">
+          <div class="lot-stub">
+            <span class="mono" style="font-weight:700">4482</span>
+            <small class="mono">Лот · USS TOKYO</small>
+          </div>
+          <div>
+            <div class="lot-photo jp">
+              <img src="images/toyota-crown-hybrid-bay.png" alt="" />
+            </div>
+            <div class="lot-body">
+              <div class="lot-row"><span class="mono">JP · GRADE 4.5</span><span>2022 · 28 400 км</span></div>
+              <h3>Toyota Crown Hybrid</h3>
+              <div class="lot-row"><b class="price">2 140 000 ₽</b><span>под ключ во Владивостоке</span></div>
+            </div>
+          </div>
+        </article>
+        <div class="lot-side">
+          <article class="lot">
+            <div class="lot-stub">
+              <span class="mono" style="font-weight:700">1190</span>
+              <small class="mono">Лот · ENCAR</small>
+            </div>
+            <div>
+              <div class="lot-photo kr">
+                <img src="images/hyundai-palisade-lot.png" alt="" />
+              </div>
+              <div class="lot-body">
+                <div class="lot-row"><span class="mono">KR · 2023</span><span>18 200 км</span></div>
+                <h3>Hyundai Palisade</h3>
+                <b class="price">3 280 000 ₽</b>
+              </div>
+            </div>
+          </article>
+          <article class="lot">
+            <div class="lot-stub">
+              <span class="mono" style="font-weight:700">0771</span>
+              <small class="mono">Лот · CN NEW</small>
+            </div>
+            <div>
+              <div class="lot-photo cn">
+                <img src="images/byd-seal-lot.png" alt="" />
+              </div>
+              <div class="lot-body">
+                <div class="lot-row"><span class="mono">CN · NEW</span><span>0 км</span></div>
+                <h3>BYD Seal</h3>
+                <b class="price">2 690 000 ₽</b>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flow">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="kicker">Один язык на все этапы</div>
+          <h2>Как идёт сделка</h2>
+        </div>
+        <p class="sec-note">Нажмите этап — или смотрите, как проходит маршрут от брифа до ключей.</p>
+      </div>
+      <div class="flow-track" id="flow-track">
+        <div class="rail" id="rail" style="--p: 0">
+          <div class="rail-line"></div>
+          <div class="rail-fill"></div>
+          <button class="step is-on" type="button" data-step="0">
+            <div class="step-num">01</div>
+            <div>
+              <h3>Бриф</h3>
+              <p>Страна, бюджет, кузов. В ответ — короткий список лотов, не общий каталог.</p>
+            </div>
+          </button>
+          <button class="step" type="button" data-step="1">
+            <div class="step-num">02</div>
+            <div>
+              <h3>Расчёт</h3>
+              <p>Пошлина, фрахт, СБКТС, доставка. Цифра под ключ до ставки.</p>
+            </div>
+          </button>
+          <button class="step" type="button" data-step="2">
+            <div class="step-num">03</div>
+            <div>
+              <h3>Торги</h3>
+              <p>Ставка на аукционе или выкуп. Лист и потолок цены — у вас.</p>
+            </div>
+          </button>
+          <button class="step" type="button" data-step="3">
+            <div class="step-num">04</div>
+            <div>
+              <h3>Ключи</h3>
+              <p>Море, таможня, лаборатория. Фото с каждого плеча маршрута.</p>
+            </div>
+          </button>
+        </div>
+        <div class="flow-detail" id="flow-detail">
+          <p class="flow-detail-item is-on">Пишете в Telegram — получаете три варианта под задачу, а не ссылку «смотрите сами».</p>
+          <p class="flow-detail-item">Одна смета до торгов. Без «потом посмотрим» и скрытых хвостов на таможне.</p>
+          <p class="flow-detail-item">Вы ставите потолок. Игнат торгуется в рамках и присылает лист до ставки.</p>
+          <p class="flow-detail-item">Порт, таможня, выдача. Видите машину на каждом этапе, не только в конце.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="desk">
+    <div class="wrap">
+      <div class="desk">
+        <div>
+          <div class="kicker">Почему не как у всех</div>
+          <div class="sign">Игнат.<br>Лично.</div>
+        </div>
+        <div>
+          <p>Читаю аукционный лист и отвечаю за цифру: подбор, торги и доставка под вашу задачу. Расчёт фиксирую до ставки — без общих чатов и без «потом посмотрим».</p>
+          <div class="facts">
+            <div class="fact"><b>4</b><span>рынка в одном входе</span></div>
+            <div class="fact"><b>21–45</b><span>дней до ключей</span></div>
+            <div class="fact"><b>1</b><span>фиксированный расчёт</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog" style="padding-top:12px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="kicker">Редакция, не витрина</div>
+          <h2>Журнал АвтоИгната</h2>
+        </div>
+        <a class="btn btn-ghost" href="#">Все материалы</a>
+      </div>
+      <div class="posts">
+        <article class="post">
+          <div>
+            <div class="kicker">01 · Япония</div>
+            <h3>Как читать грейд USS и не купить «четвёрку» с историей</h3>
+          </div>
+          <a href="#">Читать лист →</a>
+        </article>
+        <article class="post">
+          <div>
+            <div class="kicker">02 · Деньги</div>
+            <h3>Когда «дешевле на 40%» правда</h3>
+          </div>
+          <a href="#">Смотреть расчёт →</a>
+        </article>
+        <article class="post">
+          <div>
+            <div class="kicker">03 · Маршрут</div>
+            <h3>Сколько едет Корея vs Япония</h3>
+          </div>
+          <a href="#">Сроки →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap reviews">
+      <div>
+        <div class="kicker">Выдачи, не сток</div>
+        <p class="quote">«Не кидали в общий чат на 400 человек. Прислали три лота, посчитали Crown под ключ, выкупили со второй недели.»</p>
+        <div class="mono" style="color:var(--muted)">Антон · Toyota Crown 2022 · Артём</div>
+      </div>
+      <aside class="review-card">
+        <div class="kicker">Последняя выдача</div>
+        <b>12 дн.</b>
+        <p>от брифа до ставки. Корея, Palisade, бюджет 3.3 млн.</p>
+      </aside>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <a class="brand" href="#">
+          <span class="mark">АИ</span>
+          <span class="brand-name">АвтоИгнат</span>
+        </a>
+        <p class="legal">ИП Корчагин П. А. · ИНН 250209342589 · ОГРНИП 323253600036250<br>г. Артём, Приморский край</p>
+        <div class="soc">
+          <a href="#" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </a>
+          <a href="#" aria-label="VK">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.271.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+          </a>
+        </div>
+      </div>
+      <button class="btn" data-open-modal type="button">Оставить задачу</button>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <button class="btn" data-open-modal type="button">Написать Игнату</button>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <form class="sheet" id="lead">
+      <h3>Задача Игнату</h3>
+      <p>Марка, бюджет, город выдачи. Перезвоним в рабочий день.</p>
+      <input name="name" placeholder="Имя" required />
+      <input name="phone" type="tel" placeholder="+7" required />
+      <input name="task" placeholder="Crown, до 2.2 млн, Артём" />
+      <button class="btn" type="submit" style="width:100%;margin-top:8px">Отправить бриф</button>
+    </form>
+  </div>
+
+  <script>
+    const modal = document.getElementById("modal");
+    document.querySelectorAll("[data-open-modal]").forEach((btn) => {
+      btn.addEventListener("click", () => modal.classList.add("is-open"));
+    });
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.remove("is-open");
+    });
+    document.querySelectorAll("[data-group]").forEach((group) => {
+      group.addEventListener("click", (e) => {
+        const chip = e.target.closest(".chip");
+        if (!chip) return;
+        group.querySelectorAll(".chip").forEach((c) => c.classList.remove("is-on"));
+        chip.classList.add("is-on");
+      });
+    });
+    document.getElementById("brief").addEventListener("submit", (e) => {
+      e.preventDefault();
+      modal.classList.add("is-open");
+    });
+    document.getElementById("lead").addEventListener("submit", (e) => {
+      e.preventDefault();
+      modal.classList.remove("is-open");
+    });
+    const burger = document.getElementById("burger");
+    const mobile = document.getElementById("mobile-menu");
+    const overlay = document.getElementById("drawer-overlay");
+    const setMenu = (open) => {
+      burger.classList.toggle("is-open", open);
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+      burger.setAttribute("aria-label", open ? "Закрыть меню" : "Меню");
+      burger.textContent = open ? "✕" : "☰";
+      mobile.classList.toggle("is-open", open);
+      overlay.classList.toggle("is-open", open);
+      mobile.setAttribute("aria-hidden", open ? "false" : "true");
+      document.documentElement.classList.toggle("is-menu-open", open);
+      document.body.classList.toggle("is-menu-open", open);
+    };
+    burger.addEventListener("click", () => {
+      setMenu(!mobile.classList.contains("is-open"));
+    });
+    overlay.addEventListener("click", () => setMenu(false));
+    mobile.querySelectorAll(".drawer-nav a").forEach((link) => {
+      link.addEventListener("click", () => setMenu(false));
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setMenu(false);
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 980) setMenu(false);
+    });
+
+    const rail = document.getElementById("rail");
+    const track = document.getElementById("flow-track");
+    const steps = [...rail.querySelectorAll(".step")];
+    const details = [...document.querySelectorAll("#flow-detail .flow-detail-item")];
+    const last = steps.length - 1;
+    const travelMs = 10000;
+    const holdMs = 900;
+    const glideMs = 900;
+    let active = 0;
+    let p = 0;
+    let pinned = false;
+    let hovering = false;
+    let inView = false;
+    let raf = 0;
+    let lastTs = 0;
+    let holdLeft = 0;
+    let glide = null;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const stepFromP = (progress) => Math.min(last, Math.floor(progress * steps.length + 1e-6));
+
+    const paint = (progress) => {
+      p = Math.min(1, Math.max(0, progress));
+      rail.style.setProperty("--p", String(p));
+      const next = stepFromP(p);
+      if (next === active) return;
+      active = next;
+      steps.forEach((step, i) => step.classList.toggle("is-on", i === next));
+      details.forEach((item, i) => item.classList.toggle("is-on", i === next));
+    };
+
+    const easeInOut = (t) => (t < 0.5 ? 2 * t * t : 1 - ((-2 * t + 2) ** 2) / 2);
+
+    const canAutoplay = () => !pinned && !hovering && inView && !document.hidden && !reduce;
+
+    const frame = (ts) => {
+      const dt = lastTs ? Math.min(48, ts - lastTs) : 16;
+      lastTs = ts;
+
+      if (glide) {
+        glide.t += dt;
+        const u = Math.min(1, glide.t / glide.dur);
+        paint(glide.from + (glide.to - glide.from) * easeInOut(u));
+        if (u >= 1) glide = null;
+      } else if (canAutoplay()) {
+        if (holdLeft > 0) {
+          holdLeft -= dt;
+          if (holdLeft <= 0) paint(0);
+        } else {
+          const next = p + dt / travelMs;
+          if (next >= 1) {
+            paint(1);
+            holdLeft = holdMs;
+          } else {
+            paint(next);
+          }
+        }
+      }
+
+      raf = window.requestAnimationFrame(frame);
+    };
+
+    steps.forEach((step) => {
+      step.addEventListener("click", () => {
+        pinned = true;
+        holdLeft = 0;
+        const to = Number(step.dataset.step) / last;
+        if (reduce) {
+          glide = null;
+          paint(to);
+          return;
+        }
+        glide = { from: p, to, t: 0, dur: glideMs };
+      });
+    });
+
+    track.addEventListener("mouseenter", () => { hovering = true; });
+    track.addEventListener("mouseleave", () => { hovering = false; });
+    document.addEventListener("visibilitychange", () => { lastTs = 0; });
+
+    const flow = document.getElementById("flow");
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { inView = entry.isIntersecting; });
+      }, { threshold: 0.35 });
+      io.observe(flow);
+    } else {
+      inView = true;
+    }
+
+    if (!reduce) raf = window.requestAnimationFrame(frame);
+  </script>
+</body>
+</html>
